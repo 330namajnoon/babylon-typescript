@@ -20,7 +20,7 @@ class AppSceneContext implements IAppSceneContext {
 			return action.action;
 		} else {
 			return () => {
-
+				return null;
 			}
 		}
 	}
