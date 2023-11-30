@@ -2,7 +2,7 @@ import {Scene} from "@babylonjs/core"
 
 export interface IAction {
 	name: string;
-	action: () => any;
+	action: any;
 }
 
 export interface IAppSceneContext {

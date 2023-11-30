@@ -1,28 +1,14 @@
 import { Scene } from "@babylonjs/core"
 import { IAppSceneContext, IAction } from "../Interfaces/IAppSceneContext"
+import Context from "./Context";
 
-class AppSceneContext implements IAppSceneContext {
+class AppSceneContext extends Context {
 	scene!: Scene;
-	actions!: IAction[];
 	setScene(scene: Scene) {
 		this.scene = scene;
 	}
-	addNewAction(action: IAction) {
-		this.actions.unshift(action);
-	}
-
 	getScene(): Scene {
 		return this.scene;
-	}
-	getActions(name: string): () => any {
-		let action = this.actions.find(action => action.name === name);
-		if (action) {
-			return action.action;
-		} else {
-			return () => {
-				return null;
-			}
-		}
 	}
 }
 
