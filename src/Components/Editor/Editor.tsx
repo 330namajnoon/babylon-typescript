@@ -5,6 +5,7 @@ import { serverURL } from "../../config";
 import appContext from "../../Contexts/AppContext";
 import { AssetsList } from "./Assets";
 import "./sass/Editor.scss"
+import { GizmoManager } from "./GizmoManager";
 
 type EditorProps = {
     children: ReactNode;
@@ -41,7 +42,8 @@ const Editor = (props: EditorProps) => {
     return (
         <div  className="editor_container">
             {props.children}
-            <AssetsList name="assetsList" pageSelected={state.pageSelected} assets={state?.assets} />
+            <GizmoManager />
+            {/* <AssetsList name="assetsList" pageSelected={state.pageSelected} assets={state?.assets} /> */}
         </div>
     )
 
