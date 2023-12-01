@@ -5,7 +5,7 @@ import HavokPhysics from "@babylonjs/havok";
 import { IAppSceneContext } from "../Interfaces/IAppSceneContext";
 import appSceneContext from "../Contexts/AppScene.context";
 import GLBModel from "./GLBModel";
-import Door01 from "./Assets/Door01";
+import assets from "./Assets";
 import ISceneData, { IAsset } from "../Interfaces/ISceneData";
 import { serverURL } from "../config";
 import appContext from "../Contexts/AppContext";
@@ -29,6 +29,7 @@ class AppScene {
 		this.scene = this.createScene();
 		appSceneContext.setScene(this.scene);
 		appSceneContext.addNewAction("getEditMode", this.getEditMode.bind(this));
+		appSceneContext.addNewAction("addNewAsset", this.addNewAsset.bind(this));
 		this.assets = [];
 		this.engine.runRenderLoop(() => {
 			this.draw();
@@ -39,50 +40,38 @@ class AppScene {
 	}
 	createScene(): Scene {
 		const scene: Scene = new Scene(this.engine);
-		scene.createDefaultCamera(true, false, true);
-		var camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 10, BABYLON.Vector3.Zero(), scene);
-		// camera.attachControl(this.canvas, true);
-		// let l = new BABYLON.PointLight("light1", new Vector3(-4, 3, 2), scene);
-		// l.diffuse = new BABYLON.Color3(10, 10, 10);
-		// let g = new BABYLON.LightGizmo();
-		// g.light = l;
-		let ligth = BABYLON.MeshBuilder.CreateCylinder("blueLight", { height: 2, diameter: 0.1 }, scene);
-		ligth.position = new BABYLON.Vector3(0, 1, 0);
-		ligth.rotation.x = BABYLON.Tools.ToRadians(90);
-		var material = new BABYLON.StandardMaterial("lightMaterial", scene);
-		material.emissiveColor = new BABYLON.Color3(0, 1, -3);
-		ligth.material = material;
-		const gl = new BABYLON.GlowLayer("glow", scene);
-		gl.addIncludedOnlyMesh(ligth);
-		gl.intensity = 5;
+		scene.createDefaultCameraOrLight(true, false, true);
 		HavokPhysics().then(res => {
 			const hk = new BABYLON.HavokPlugin(true, res);
 			// enable physics in the scene with a gravity
 			this.scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
 			//this.importGLBModels();
 			this.sceneData.assets.forEach(async asset => {
-				let res = await this.setAsset(asset);
+				let res = await this.setAssets(asset);
 				if (this.assets.length === this.sceneData.assets.length)
 					this.setLoaded(true);
 			})
 		});
 		return scene;
 	}
-	async setAsset(asset: IAsset) {
-
-		switch (asset.type) {
-			case "Door01":
-				let res = await SceneLoader.ImportMeshAsync("", `${serverURL}${asset.path}`, asset.fileName, this.scene);
-				this.assets.unshift(new Door01(res, asset));
-				return res;
-
-			case "SphereLight":
-				this.assets.unshift(new SphereLight(asset));
-				return true;
-			default:
-				break;
+	async setAssets(asset: IAsset) {
+		if (asset.path) {
+			let res = await SceneLoader.ImportMeshAsync("", `${serverURL}${asset.path}`, asset.fileName, this.scene);
+			let ClassName = assets[asset.type] as any;
+			this.assets.unshift(new ClassName(res, asset));
+			return res;
+		} else {
+			let ClassName = assets[asset.type] as any;
+			this.assets.unshift(new ClassName(asset));
+			return true;
 		}
 	}
+
+	async addNewAsset(asset: IAsset) {
+		let res = await this.setAssets(asset);
+		this.sceneData.assets.unshift(asset);
+	}
+
 	importGLBModels() {
 		try {
 			// setInterval(() => {
