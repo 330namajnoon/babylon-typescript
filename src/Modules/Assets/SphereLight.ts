@@ -24,8 +24,10 @@ export default class SphereLight {
         this.light = new BABYLON.PointLight(assetData.name, this.sphere.position, appSceneContext.getScene());
     }
 
-    draw(): void {
+    initial(): void {
 
+    }
+	update(): void {
         this.gl.intensity = this.pow;
         this.light.diffuse.b = this.pow;
         this.light.diffuse.r = this.pow;
@@ -33,8 +35,6 @@ export default class SphereLight {
         this.material.emissiveColor.b = this.pow;
         this.material.emissiveColor.r = this.pow;
         this.material.emissiveColor.g = this.pow;
-    }
-	update(): void {
         this.frame++;
         if (this.frame % 2 == 0) {
             if (this.pow >= 10 || this.pow <= 4)

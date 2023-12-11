@@ -1901,7 +1901,7 @@
   "resolved" "https://registry.npmjs.org/@types/aria-query/-/aria-query-5.0.4.tgz"
   "version" "5.0.4"
 
-"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.9":
+"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.12", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.9":
   "integrity" "sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA=="
   "resolved" "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"
   "version" "7.20.5"
@@ -2894,7 +2894,7 @@
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
 
-"babel-plugin-macros@^3.1.0":
+"babel-plugin-macros@^3.0.1", "babel-plugin-macros@^3.1.0":
   "integrity" "sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg=="
   "resolved" "https://registry.npmjs.org/babel-plugin-macros/-/babel-plugin-macros-3.1.0.tgz"
   "version" "3.1.0"
@@ -2931,6 +2931,16 @@
   "version" "0.5.3"
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.4.3"
+
+"babel-plugin-preval@^5.1.0":
+  "integrity" "sha512-G5R+xmo5LS41A4UyZjOjV0mp9AvkuCyUOAJ6TOv/jTZS+VKh7L7HUDRcCSOb0YCM/u0fFarh7Diz0wjY8rFNFg=="
+  "resolved" "https://registry.npmjs.org/babel-plugin-preval/-/babel-plugin-preval-5.1.0.tgz"
+  "version" "5.1.0"
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@types/babel__core" "^7.1.12"
+    "babel-plugin-macros" "^3.0.1"
+    "require-from-string" "^2.0.2"
 
 "babel-plugin-transform-react-remove-prop-types@^0.4.24":
   "integrity" "sha512-eqj0hVcJUR57/Ug2zE1Yswsw4LhuqqHhD+8v120T1cl3kjg76QwtyBrdIk4WVwK+lAhBJVYCd/v+4nc4y+8JsA=="
@@ -4681,6 +4691,21 @@
     "loader-utils" "^2.0.0"
     "schema-utils" "^3.0.0"
 
+"file-match@^1.0.1":
+  "integrity" "sha512-g9p6bZV3HlSUM35QPvFWiP/PckDVe5jLPDhx6PfMuy06o+htesJTyDu7zRdXnOm3BY8pXmxb+QY5qIcsoWMGNg=="
+  "resolved" "https://registry.npmjs.org/file-match/-/file-match-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "utils-extend" "^1.0.6"
+
+"file-system@^2.2.2":
+  "integrity" "sha512-YgbXEVCu21CfmoeJ1rFLVLPGhW9o7iCzVFqk7ydy2TxF7rXH2YB68CFgDXLOvTD2pMLtg8paVqurzVjxGRdYmw=="
+  "resolved" "https://registry.npmjs.org/file-system/-/file-system-2.2.2.tgz"
+  "version" "2.2.2"
+  dependencies:
+    "file-match" "^1.0.1"
+    "utils-extend" "^1.0.4"
+
 "filelist@^1.0.4":
   "integrity" "sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q=="
   "resolved" "https://registry.npmjs.org/filelist/-/filelist-1.0.4.tgz"
@@ -6394,6 +6419,13 @@
   "integrity" "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="
   "resolved" "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   "version" "1.2.4"
+
+"list-react-files@^0.2.0":
+  "integrity" "sha512-ZbBO+Ch76klfcD+bf/0FCBzCMZ16moT598cUo5yn0PbdQzQp4C11hZiHXAUnm3OZUXfV/ze1mog6wzwH4AGdKQ=="
+  "resolved" "https://registry.npmjs.org/list-react-files/-/list-react-files-0.2.0.tgz"
+  "version" "0.2.0"
+  dependencies:
+    "glob" "^7.1.2"
 
 "loader-runner@^4.2.0":
   "integrity" "sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg=="
@@ -9263,6 +9295,11 @@
   "integrity" "sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA=="
   "resolved" "https://registry.npmjs.org/utila/-/utila-0.4.0.tgz"
   "version" "0.4.0"
+
+"utils-extend@^1.0.4", "utils-extend@^1.0.6":
+  "integrity" "sha512-+VzQieEAijyCFGqnGAWIy7Em1dFGdgf1w+orKwmTWHyaGL19aw9Oq5e5ZZaxgcS777AkPYEsbgWqpz5E6KniPg=="
+  "resolved" "https://registry.npmjs.org/utils-extend/-/utils-extend-1.0.8.tgz"
+  "version" "1.0.8"
 
 "utils-merge@1.0.1":
   "integrity" "sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA=="

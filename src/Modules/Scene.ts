@@ -1,16 +1,19 @@
 import { Engine, Scene, MeshBuilder, SceneLoader, Vector3, HavokPlugin, PhysicsShapeType, PhysicsAggregate, GizmoManager } from "@babylonjs/core"
+import * as GUI from "@babylonjs/gui/3D";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import HavokPhysics from "@babylonjs/havok";
 import { IAppSceneContext } from "../Interfaces/IAppSceneContext";
 import appSceneContext from "../Contexts/AppScene.context";
-import GLBModel from "./GLBModel";
+import GLBModel from "./Assets/GLBModel";
 import assets from "./Assets";
 import ISceneData, { IAsset } from "../Interfaces/ISceneData";
 import { serverURL } from "../config";
 import appContext from "../Contexts/AppContext";
 import SphereLight from "./Assets/SphereLight";
-
+import scripts from "./Scripts";
+import EventType from "../Interfaces/EventType";
+import CollisionCallback from "./CollisionCallback";
 
 class AppScene {
 	loaded: boolean = false;
@@ -20,6 +23,7 @@ class AppScene {
 	engine: Engine;
 	scene: Scene;
 	assets: any[];
+	collisionCallback: CollisionCallback;
 	gizmoManager!: GizmoManager;
 	constructor(sceneData: ISceneData, editMode: boolean = false) {
 		this.editMode = editMode;
@@ -28,11 +32,13 @@ class AppScene {
 		this.engine = new Engine(this.canvas);
 		this.scene = this.createScene();
 		appSceneContext.setScene(this.scene);
+		this.collisionCallback = new CollisionCallback(this.scene);
 		appSceneContext.addNewAction("getEditMode", this.getEditMode.bind(this));
 		appSceneContext.addNewAction("addNewAsset", this.addNewAsset.bind(this));
+		appSceneContext.addNewAction("setGizmoManager", this.setGizmoManager.bind(this));
+		appSceneContext.collisionCallback = this.collisionCallback;
 		this.assets = [];
 		this.engine.runRenderLoop(() => {
-			this.draw();
 			this.update();
 			this.scene.render();
 		})
@@ -48,8 +54,10 @@ class AppScene {
 			//this.importGLBModels();
 			this.sceneData.assets.forEach(async asset => {
 				let res = await this.setAssets(asset);
-				if (this.assets.length === this.sceneData.assets.length)
+				if (this.assets.length === this.sceneData.assets.length) {
 					this.setLoaded(true);
+					this.initial();
+				}
 			})
 		});
 		return scene;
@@ -72,29 +80,15 @@ class AppScene {
 		this.sceneData.assets.unshift(asset);
 	}
 
-	importGLBModels() {
-		try {
-			// setInterval(() => {
-			// 	const box = MeshBuilder.CreateSphere("box", { diameter: 0.1 });
-			// 	box.position.y = Math.floor(Math.random() * 5) + 50;
-			// 	box.position.x = Math.floor(Math.random() * 20);
-			// 	box.position.z = Math.floor(Math.random() * 20);
-			// 	const sphereAggregate = new BABYLON.PhysicsAggregate(box, BABYLON.PhysicsShapeType.SPHERE, { mass: 0.1, restitution: 0.1 }, this.scene);
-			// }, 10)
-			const plane = MeshBuilder.CreateGround("ground", { width: 50, height: 50 }, this.scene);
-			const planeAgregate = new PhysicsAggregate(plane, PhysicsShapeType.BOX, { mass: 0 }, this.scene);
-		} catch (error) {
-
-		}
-	}
 	setEditMode() {
 		if (this.editMode) {
-			this.setGizmoManager();
+			//this.setGizmoManager();
 		}
 	}
-	draw() {
+
+	initial() {
 		this.assets.forEach(asset => {
-			asset.draw();
+			asset.initial();
 		})
 	}
 	update() {
@@ -106,11 +100,32 @@ class AppScene {
 	setLoaded(value: boolean): any {
 		this.loaded = true;
 	}
-	setGizmoManager() {
-		this.gizmoManager = new BABYLON.GizmoManager(this.scene);
-		this.gizmoManager.positionGizmoEnabled = true;
-		this.gizmoManager.rotationGizmoEnabled = true;
-		this.gizmoManager.scaleGizmoEnabled = true;
+	setGizmoManager(value: string) {
+		if (!this.gizmoManager)
+			this.gizmoManager = new BABYLON.GizmoManager(this.scene);
+		switch (value) {
+			case "MOVE":
+				this.gizmoManager.positionGizmoEnabled = true;
+				this.gizmoManager.rotationGizmoEnabled = false;
+				this.gizmoManager.scaleGizmoEnabled = false;
+				break;
+			case "ROTATE":
+				this.gizmoManager.positionGizmoEnabled = false;
+				this.gizmoManager.rotationGizmoEnabled = true;
+				this.gizmoManager.scaleGizmoEnabled = false;
+				break;
+			case "SCALE":
+				this.gizmoManager.positionGizmoEnabled = false;
+				this.gizmoManager.rotationGizmoEnabled = false;
+				this.gizmoManager.scaleGizmoEnabled = true;
+				break;
+
+			default:
+				this.gizmoManager.positionGizmoEnabled = false;
+				this.gizmoManager.rotationGizmoEnabled = false;
+				this.gizmoManager.scaleGizmoEnabled = false;
+				break;
+		}
 	}
 	getEditMode(): boolean {
 		return this.editMode;

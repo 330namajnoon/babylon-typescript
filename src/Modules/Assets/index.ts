@@ -1,6 +1,6 @@
-import Door01 from "./Door01";
+import GLBModel from "./GLBModel";
 import SphereLight from "./SphereLight";
 
-const assets = {Door01,SphereLight};
+const assets = {GLBModel,SphereLight};
 
 export default assets;

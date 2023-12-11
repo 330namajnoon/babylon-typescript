@@ -14,6 +14,8 @@
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "axios": "^1.6.2",
+    "babel-plugin-preval": "^5.1.0",
+    "list-react-files": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

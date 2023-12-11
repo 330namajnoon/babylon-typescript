@@ -1,4 +1,6 @@
-export type AssetType = "Door01" | "SphereLight"; 
+import ScriptType from "./ScriptType";
+
+export type AssetType = "SphereLight" | "GLBModel"; 
 
 export interface Vextor3 {
     x: number;
@@ -15,6 +17,7 @@ export interface IAsset {
     position: Vextor3;
     rotation: Vextor3;
     scale: Vextor3;
+    scripts: ScriptType[];
 }
 
 export default interface ISceneData {

@@ -1,7 +1,8 @@
 import BABYLON,{ ISceneLoaderAsyncResult, PhysicsAggregate, PhysicsShapeType, PhysicsHelper, Vector3, IPointerEvent, PickingInfo, IPhysicsCollisionEvent,  } from "@babylonjs/core"
-import GLBModel from "../GLBModel";
+import GLBModel from "./GLBModel";
 import appSceneContext from "../../Contexts/AppScene.context";
 import { IAsset } from "../../Interfaces/ISceneData";
+
 
 export default class Door01 extends GLBModel {
 	aggregate!: PhysicsAggregate;
@@ -16,7 +17,7 @@ export default class Door01 extends GLBModel {
 			})
 	
 			this.setCollisionObservable(collisionEvent => {
-	
+				
 			})
 		}
 
