@@ -26,11 +26,19 @@ export default class GLBModel {
 			this.setScripts();
 		}else {
 			this.setDataTable();
+			this.setDevScripts();
 		}
 	}
 	setScripts(): void {
 		this.scripts = [];
 		this.assetData.scripts.forEach((script: ScriptType) => {
+			const Script = scripts[script];
+			this.scripts.unshift(new Script(this));
+		})
+	}
+	setDevScripts(): void {
+		this.scripts = [];
+		this.assetData.devScripts.forEach((script: ScriptType) => {
 			const Script = scripts[script];
 			this.scripts.unshift(new Script(this));
 		})

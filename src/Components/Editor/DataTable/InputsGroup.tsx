@@ -3,6 +3,7 @@ import Icon from "../../Icon";
 
 type Props = {
     children: ReactNode;
+    name: string;
 };
 type State = {
     opened: boolean;
@@ -31,6 +32,7 @@ export default class InputsGroup extends Component<Props, State> {
                     className="button_container"
                 >
                     <Icon className="icon">{this.state.opened ? "expand_less" : "expand_more"}</Icon>
+                    <h5>{this.props.name}</h5>
                 </div>
             </div>
         );

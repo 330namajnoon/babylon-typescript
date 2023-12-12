@@ -17,6 +17,7 @@ export interface IAsset {
     position: Vextor3;
     rotation: Vextor3;
     scale: Vextor3;
+    devScripts: ScriptType[]
     scripts: ScriptType[];
 }
 
