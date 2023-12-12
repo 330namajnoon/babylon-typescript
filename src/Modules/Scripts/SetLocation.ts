@@ -1,17 +1,19 @@
 import Script from "../Assets/Script";
 import IScript from "../../Interfaces/IScript";
 import GLBModel from "../Assets/GLBModel";
+import appSceneContext from "../../Contexts/AppScene.context";
 
 
 export default class SetLocation extends Script implements IScript {
-
-   
 
     initial() {
         console.log(this.entity.assetData)
     }
     
     update() {
+        
+    }
+    setLocation() {
         let mesh = this.entity.meshes[0];
         let position = this.entity.assetData.position;
         let rotation = this.entity.assetData.rotation;
