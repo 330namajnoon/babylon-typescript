@@ -14,7 +14,7 @@ function App() {
   const [scene, setScene] = useState<AppScene>();
   useEffect(() => {
     appContext.addNewAction("appSetEditMode", setEditMode)
-    axios.get(serverURL+"/world/scene001").then((res:any) => {
+    axios.get(serverURL+"/world/scene002").then((res:any) => {
       const scene_:AppScene = new AppScene(res.data.data as ISceneData,editMode);
       setScene(scene_);
       window.addEventListener("resize", () => {

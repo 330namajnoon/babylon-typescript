@@ -63,7 +63,7 @@ export default class GLBModel {
         mesh.scaling = new Vector3(scale.x, scale.y, scale.z);
     }
     setAggregate(index: number) {
-        this.aggregate = new PhysicsAggregate(this.meshes[2], PhysicsShapeType.BOX, { mass: 0 }, appSceneContext.getScene());
+        //this.aggregate = new PhysicsAggregate(this.meshes[0], PhysicsShapeType.BOX, { mass: 0 }, appSceneContext.getScene());
     }
     initial() {
         this.scripts.forEach((script) => {

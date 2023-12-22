@@ -19,6 +19,7 @@ export interface IAsset {
     scale: Vextor3;
     devScripts: ScriptType[]
     scripts: ScriptType[];
+    attributes: {name: string, value: string | number | boolean}[];
 }
 
 export default interface ISceneData {

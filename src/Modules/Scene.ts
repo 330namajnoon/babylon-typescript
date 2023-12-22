@@ -46,7 +46,7 @@ class AppScene {
 	}
 	createScene(): Scene {
 		const scene: Scene = new Scene(this.engine);
-		scene.createDefaultCameraOrLight(true, false, true);
+		scene.createDefaultCameraOrLight(true, true, true);
 		HavokPhysics().then(res => {
 			const hk = new BABYLON.HavokPlugin(true, res);
 			// enable physics in the scene with a gravity
