@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babylonjs/core": "^6.31.0",
+    "@babylonjs/gui": "^6.39.0",
     "@babylonjs/havok": "^1.3.0",
     "@babylonjs/loaders": "^6.31.0",
     "@testing-library/jest-dom": "^5.17.0",
