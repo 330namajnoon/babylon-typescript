@@ -46,11 +46,27 @@ class AppScene {
 	}
 	createScene(): Scene {
 		const scene: Scene = new Scene(this.engine);
-		scene.createDefaultCameraOrLight(true, false, true);
-		HavokPhysics().then(res => {
-			const hk = new BABYLON.HavokPlugin(true, res);
+		//scene.createDefaultCameraOrLight(true, false, true);
+		const camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(5, 7, 0), scene);
+		camera.setPosition(new Vector3(10,7, -35));
+		camera.attachControl(this.canvas, true);
+		const light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
+		//scene.createDefaultCamera(true, true, true);
+		// HavokPhysics().then(res => {
+		// 	const hk = new BABYLON.HavokPlugin(true, res);
+		// 	// enable physics in the scene with a gravity
+		// 	this.scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
+		// 	//this.importGLBModels();
+		// 	this.sceneData.assets.forEach(async asset => {
+		// 		let res = await this.setAssets(asset);
+		// 		if (this.assets.length === this.sceneData.assets.length) {
+		// 			this.setLoaded(true);
+		// 			this.initial();
+		// 		}
+		// 	})
+		// });
 			// enable physics in the scene with a gravity
-			this.scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
+			//this.scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
 			//this.importGLBModels();
 			this.sceneData.assets.forEach(async asset => {
 				let res = await this.setAssets(asset);
@@ -59,7 +75,6 @@ class AppScene {
 					this.initial();
 				}
 			})
-		});
 		return scene;
 	}
 	async setAssets(asset: IAsset) {

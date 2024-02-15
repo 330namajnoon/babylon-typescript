@@ -22,7 +22,7 @@ export default class GLBModel {
             animation.pause();
         });
         if (!appSceneContext.getAction("getEditMode")(null)) {
-            this.setAggregate(0);
+            //this.setAggregate(0);
             this.setScripts();
         } else {
             this.setDataTable();
