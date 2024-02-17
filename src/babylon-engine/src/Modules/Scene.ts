@@ -1,4 +1,5 @@
 import { Engine, Scene, SceneLoader } from "@babylonjs/core"
+import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import appSceneContext from "../Contexts/AppScene.context";
 import CollisionCallback from "./CollisionCallback";
@@ -6,6 +7,7 @@ import GLBModel from "./Assets/GLBModel";
 import ISceneConfig from "../Interfaces/ISceneConfig";
 
 class AppScene {
+	camera: BABYLON.ArcRotateCamera;
 	modules: any[];
 	loaded: boolean = false;
 	canvas: HTMLCanvasElement;
@@ -18,7 +20,8 @@ class AppScene {
 		this.canvas = config.canvas;
 		this.engine = new Engine(this.canvas);
 		this.scene = new Scene(this.engine);
-		this.scene.createDefaultCameraOrLight(true,true,true);
+		this.camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), this.scene);
+		this.camera.attachControl(this.camera, true);
 		appSceneContext.setScene(this.scene);
 		this.collisionCallback = new CollisionCallback(this.scene);
 		appSceneContext.collisionCallback = this.collisionCallback;
@@ -43,6 +46,13 @@ class AppScene {
 		})
 	}
 
+	async import3DModel2(name: string, path: string, fileName: string, scripts: any[]) {
+		const res = await SceneLoader.ImportMeshAsync("", path, fileName, this.scene)
+		const model = new GLBModel(name, res, scripts, this);
+		this.assets.unshift(model);
+		return model;
+	}
+
 	initial() {
 		this.assets.forEach(asset => {
 			asset.initial();
@@ -51,7 +61,7 @@ class AppScene {
 
 	update() {
 		this.assets.forEach(asset => {
-			asset.update();
+			if (asset.update) asset.update();
 		})
 	}
 }

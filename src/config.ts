@@ -1,3 +1,3 @@
-const serverURL: string = "http://87.216.101.230:4001";
+const serverURL: string = "http://calimocho.duckdns.org:4001";
 
 export {serverURL};

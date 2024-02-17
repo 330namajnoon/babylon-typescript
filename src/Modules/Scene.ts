@@ -16,6 +16,7 @@ import EventType from "../Interfaces/EventType";
 import CollisionCallback from "./CollisionCallback";
 
 class AppScene {
+	camera: BABYLON.ArcRotateCamera
 	loaded: boolean = false;
 	editMode: boolean = false;
 	sceneData: ISceneData;
@@ -31,7 +32,8 @@ class AppScene {
 		this.canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
 		this.engine = new Engine(this.canvas);
 		this.scene = this.createScene();
-		appSceneContext.setScene(this.scene);
+		this.camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 10, new Vector3(0, 0, 0), this.scene);
+		this.camera.attachControl(this.camera, true);
 		this.collisionCallback = new CollisionCallback(this.scene);
 		appSceneContext.addNewAction("getEditMode", this.getEditMode.bind(this));
 		appSceneContext.addNewAction("addNewAsset", this.addNewAsset.bind(this));

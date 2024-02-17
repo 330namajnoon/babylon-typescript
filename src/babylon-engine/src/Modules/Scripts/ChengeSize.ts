@@ -4,10 +4,10 @@ import GLBModel from "../Assets/GLBModel";
 export default class ChengeSize extends Script {
     sx: number = 0.01;
     frame:number = 0;
-    initial() {
+    initial = () => {
         this.entity.animationGroups[0].play();
     }
-    update() {
+    update = () => {
         this.frame++;
         this.entity.meshes[0].position.x += this.sx;
         if (this.frame % 100 === 0)

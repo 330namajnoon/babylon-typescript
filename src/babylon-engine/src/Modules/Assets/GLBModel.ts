@@ -21,20 +21,22 @@ export default class GLBModel {
         this.setScripts();
     }
 
-    setScripts(): void {
+    setScripts = () => {
         this.scripts = [];
         this.scriptsModules.forEach((script: any) => {
             const Script = script;
+            const newScript = new Script(this, this.app)
+            newScript.initial();
             this.scripts.unshift(new Script(this, this.app));
         });
     }
     
-    initial() {
+    initial = () => {
         this.scripts.forEach((script) => {
             if (script.initial) script.initial();
         });
     }
-    update() {
+    update = () => {
         this.scripts.forEach((script) => {
             if (script.update) script.update();
         });
