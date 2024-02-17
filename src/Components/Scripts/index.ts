@@ -1,2 +1,4 @@
 import CameraPosition from "./CameraPosition"
-export default {CameraPosition};
+
+const scripts = {CameraPosition};
+export default scripts;
